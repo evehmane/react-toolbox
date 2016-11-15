@@ -137,6 +137,9 @@ const factory = (MenuItem) => {
 
     handleDocumentClick = (event) => {
       if (this.state.active && !events.targetIsDescendant(event, ReactDOM.findDOMNode(this))) {
+        if (event.type === 'touchstart') {
+          events.pauseEvent(event);
+        }
         this.setState({active: false, rippled: false});
       }
     };
