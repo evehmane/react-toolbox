@@ -42,7 +42,8 @@ const rippleFactory = (options = {}) => {
           rippleActive: PropTypes.string,
           rippleRestarting: PropTypes.string,
           rippleWrapper: PropTypes.string
-        })
+        }),
+        touchDisabled: PropTypes.bool
       };
 
       static defaultProps = {
@@ -51,7 +52,8 @@ const rippleFactory = (options = {}) => {
         rippleCentered: defaultCentered,
         rippleClassName: defaultClassName,
         rippleMultiple: defaultMultiple,
-        rippleSpread: defaultSpread
+        rippleSpread: defaultSpread,
+        touchDisabled: false
       };
 
       state = {
@@ -125,6 +127,9 @@ const rippleFactory = (options = {}) => {
        * @return {Boolean} True in case the ripple should trigger or false if it shouldn't.
        */
       rippleShouldTrigger (isTouch) {
+        if (this.props.touchDisabled) {
+          return !isTouch;
+        }
         const shouldStart = isTouch ? true : !this.touchCache;
         this.touchCache = isTouch;
         return shouldStart;
@@ -241,7 +246,7 @@ const rippleFactory = (options = {}) => {
 
       render () {
         const { ripples } = this.state;
-        const { onRippleEnded, rippleCentered, rippleMultiple, rippleSpread, // eslint-disable-line
+        const { onRippleEnded, rippleCentered, rippleMultiple, rippleSpread, touchDisabled, // eslint-disable-line
           children, ripple, rippleClassName, ...other } = this.props;
 
         if (!ripple) return <ComposedComponent children={children} {...other} />;
