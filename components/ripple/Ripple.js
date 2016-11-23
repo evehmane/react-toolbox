@@ -53,7 +53,7 @@ const rippleFactory = (options = {}) => {
         rippleClassName: defaultClassName,
         rippleMultiple: defaultMultiple,
         rippleSpread: defaultSpread,
-        touchDisabled: false
+        touchDisabled: true
       };
 
       state = {
